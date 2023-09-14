@@ -46,7 +46,7 @@ export const userApi = createApi({
     loginUser: builder.mutation<User, LoginDto>({
       query: (loginCredentials) => ({
         method: "POST",
-        url: "/register",
+        url: "/login",
         body: loginCredentials,
       }),
       invalidatesTags: ["user"],
