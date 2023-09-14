@@ -1,5 +1,6 @@
 import { Button, Form, Label, TextInput } from '@trussworks/react-uswds'
 import React from 'react'
+import GoogleLogin from './GoogleOauth';
 
 function LogIn() {
     const handleLogin = (e:React.FormEvent) =>{
@@ -22,6 +23,7 @@ function LogIn() {
                     type='password'
                 />
                 <Button type='submit'>Login!</Button>
+                <GoogleLogin/>
             </Form>
         </div>
     )
