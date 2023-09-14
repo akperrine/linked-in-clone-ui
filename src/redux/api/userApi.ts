@@ -17,6 +17,16 @@ export type User = {
   role: string;
 };
 
+export type RegisterDto = {
+  email: string;
+  password: string;
+};
+
+export type LoginDto = {
+  email: string;
+  password: string;
+};
+
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -25,15 +35,23 @@ export const userApi = createApi({
   }),
   tagTypes: ["user"],
   endpoints: (builder) => ({
-    registerUser: builder.query<User, void>({
-      query: () => "/register",
-      providesTags: ["user"],
+    registerUser: builder.mutation<User, RegisterDto>({
+      query: (registerCredentials) => ({
+        method: "POST",
+        url: "/register",
+        body: registerCredentials,
+      }),
+      invalidatesTags: ["user"],
     }),
-    loginUser: builder.query<User, void>({
-      query: () => "/login",
-      providesTags: ["user"],
+    loginUser: builder.mutation<User, LoginDto>({
+      query: (loginCredentials) => ({
+        method: "POST",
+        url: "/register",
+        body: loginCredentials,
+      }),
+      invalidatesTags: ["user"],
     }),
   }),
 });
 
-export const { useRegisterUserQuery, useLoginUserQuery } = userApi;
+export const { useLoginUserMutation, useRegisterUserMutation } = userApi;
