@@ -1,14 +1,23 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
-import { useRegisterUserQuery } from "../../redux/api/userApi";
+import { useRegisterUserMutation } from "../../redux/api/userApi";
 
 function Register() {
   const [registered, setRegistered] = useState(false);
-  const [registerForm, setRegisterForm] = useState({});
+  const [registerForm, setRegisterForm] = useState({
+    email: "",
+    password: "",
+  });
+  const [registerUserMutaion] = useRegisterUserMutation();
+  console.log(registered);
 
   const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("submitted");
+    console.log(registerForm);
+    registerUserMutaion({
+      email: registerForm.email,
+      password: registerForm.password,
+    });
     setRegistered(true);
   };
 
@@ -18,15 +27,30 @@ function Register() {
     setRegistered(true);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setRegisterForm({ ...registerForm, [name]: value });
+  };
+
   return (
     <div data-testid="register-component">
       <div>
         {!registered ? (
           <Form onSubmit={handleRegisterSubmit}>
             <Label htmlFor="email">Email:</Label>
-            <TextInput id="email" name="email" type="email" />
+            <TextInput
+              id="email"
+              name="email"
+              type="email"
+              onChange={handleChange}
+            />
             <Label htmlFor="password">Password:</Label>
-            <TextInput id="password" name="password" type="password" />
+            <TextInput
+              id="password"
+              name="password"
+              type="password"
+              onChange={handleChange}
+            />
             <Button type="submit">Register!</Button>
           </Form>
         ) : (
