@@ -2,22 +2,22 @@ import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
 import { useRegisterUserMutation } from "../../redux/api/userApi";
 
+const initialRegisterFromData = {
+  email: "",
+  password: "",
+};
+
 function Register() {
   const [registered, setRegistered] = useState(false);
-  const [registerForm, setRegisterForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [registerFormData, setRegisterFormData] = useState(
+    initialRegisterFromData
+  );
   const [registerUserMutaion] = useRegisterUserMutation();
-  console.log(registered);
 
   const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(registerForm);
-    registerUserMutaion({
-      email: registerForm.email,
-      password: registerForm.password,
-    });
+    registerUserMutaion(registerFormData);
+    setRegisterFormData(initialRegisterFromData);
     setRegistered(true);
   };
 
@@ -29,7 +29,7 @@ function Register() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setRegisterForm({ ...registerForm, [name]: value });
+    setRegisterFormData({ ...registerFormData, [name]: value });
   };
 
   return (
