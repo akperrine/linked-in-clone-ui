@@ -1,7 +1,7 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
-import GoogleLogin from "./GoogleOauth";
-import { useLoginUserMutation } from "../../redux/api/userApi";
+import GoogleLogin from "../Components/User/GoogleOauth";
+import { useLoginUserMutation } from "../redux/api/userApi";
 
 const initialLoginFromData = {
   email: "",

@@ -1,6 +1,6 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
-import { useRegisterUserMutation } from "../../redux/api/userApi";
+import { useRegisterUserMutation } from "../redux/api/userApi";
 
 const initialRegisterFromData = {
   email: "",
