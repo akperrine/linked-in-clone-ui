@@ -1,17 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { render, screen, userEvent } from "../testConfig/utils";
+import { renderWithProviders, screen, userEvent } from "../testConfig/utils";
 import Register from "../src/pages/Register";
 import React from "react";
 
 describe("Register", () => {
   it("Render the Register component", () => {
-    render(<Register />);
+    renderWithProviders(<Register />);
 
     expect(screen.findByTestId("register-component")).toBeDefined();
   });
 
   it("Render the basic register form", () => {
-    render(<Register />);
+    renderWithProviders(<Register />);
 
     expect(screen.getByLabelText("Email:")).toBeDefined();
     expect(screen.getByLabelText("Password:")).toBeDefined();
@@ -19,7 +19,7 @@ describe("Register", () => {
   });
 
   it("Render the additional information after successful register", async () => {
-    render(<Register />);
+    renderWithProviders(<Register />);
 
     await userEvent.click(screen.getByRole("button", { name: "Register!" }));
 

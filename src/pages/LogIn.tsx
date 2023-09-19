@@ -2,6 +2,7 @@ import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
 import GoogleLogin from "../Components/User/GoogleOauth";
 import { useLoginUserMutation } from "../redux/api/userApi";
+import { getSocialLoginUrl } from "../utils/helperFunctions";
 
 const initialLoginFromData = {
   email: "",
@@ -42,7 +43,7 @@ function LogIn() {
           onChange={handleChange}
         />
         <Button type="submit">Login!</Button>
-        <GoogleLogin />
+        <a href={getSocialLoginUrl()}>Login With Google</a>
       </Form>
     </div>
   );

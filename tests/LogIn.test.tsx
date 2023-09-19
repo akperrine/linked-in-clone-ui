@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, renderWithProviders, screen } from "../testConfig/utils";
+import { renderWithProviders, screen } from "../testConfig/utils";
 import LogIn from "../src/pages/LogIn";
 import React from "react";
 
