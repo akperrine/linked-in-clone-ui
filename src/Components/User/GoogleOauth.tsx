@@ -1,19 +1,24 @@
-import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
-import { Button } from "@trussworks/react-uswds";
+import React, { useEffect,useState } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 
-const GoogleOauth = ()=>{
+function GoogleOauth() {
+    const location = useLocation();
+    const [redirectTo, setRedirectTo] = useState('/login')
 
-    const LogIn = useGoogleLogin({
-        onSuccess: tokenResponse => getToken(tokenResponse)
-    });
-    const getToken = (codeResponse:TokenResponse) =>{
-        console.log(codeResponse)
+    useEffect(()=>{
+        const accessToken = extractUrlParameter('token')
+        if(accessToken){
+            console.log(accessToken);
+            const redirect = '/'
+            setRedirectTo(redirect)
+        }
+    }, [])
+
+    const extractUrlParameter = (key: string) =>{
+        return new URLSearchParams(location.search).get(key);
     }
-
     return (
-        
-        <Button type="button" onClick={() => LogIn()}>Sing in with Google</Button>
-
+        <Navigate to={redirectTo}/>
     )
 }
 
