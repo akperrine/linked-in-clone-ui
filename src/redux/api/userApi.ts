@@ -1,22 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getXsrfToken } from "../../utils/helperFunctions";
-
-export type User = {
-  id: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  headline: string;
-  country: string;
-  city: string;
-  company: string;
-  industry: string;
-  college: string;
-  website: string;
-  about: string;
-  role: string;
-};
+import { User } from "../slices/userSlice";
 
 export type RegisterDto = {
   email: string;
