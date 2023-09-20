@@ -9,14 +9,15 @@ import {
 import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import { useState } from "react";
 import GoogleOauth from "./Components/User/GoogleOauth";
 import FirstLoginForm from "./pages/FirstLoginForm";
 import { useSelector } from "react-redux";
+import { selectLoginStatus } from "./redux/slices/userSlice";
 
 function App() {
-  const user = useSelector((state) => state.user);
-  const loggedIn = user.isLoggedIn;
+  const loggedIn = useSelector(selectLoginStatus);
+  console.log(loggedIn);
+
   return (
     <Router>
       <Routes>

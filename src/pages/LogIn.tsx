@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useLoginUserMutation } from "../redux/api/userApi";
 import { getSocialLoginUrl } from "../utils/helperFunctions";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/slices/userSlice";
+import { login, selectCurrentUser } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const initialLoginFromData = {
@@ -12,16 +12,14 @@ const initialLoginFromData = {
 };
 
 function LogIn() {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginFormData, setLoginFormData] = useState(initialLoginFromData);
   const [loginUserMutaion] = useLoginUserMutation();
-  console.log(user);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("submitted");
+
     try {
       const { data } = await loginUserMutaion(loginFormData);
       dispatch(login(data));

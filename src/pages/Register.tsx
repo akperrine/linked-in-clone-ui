@@ -1,7 +1,9 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
 import { useRegisterUserMutation } from "../redux/api/userApi";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 type RegisterFromData = {
   email: string;
@@ -14,14 +16,26 @@ const initialRegisterFromData = {
 };
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [registerFormData, setRegisterFormData] = useState<RegisterFromData>(
     initialRegisterFromData
   );
   const [registerUserMutaion] = useRegisterUserMutation();
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    registerUserMutaion(registerFormData);
+    try {
+      const { data } = await registerUserMutaion(registerFormData);
+      dispatch(login(data));
+      if (data.firstLogin === true) {
+        navigate("/firstLogin");
+      } else {
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
     setRegisterFormData(initialRegisterFromData);
   };
 

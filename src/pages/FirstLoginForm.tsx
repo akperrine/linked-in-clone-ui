@@ -1,5 +1,7 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
-import { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../redux/slices/userSlice";
 
 type UpdateUserFormData = {
   firstName: string;
@@ -30,6 +32,7 @@ const initialUpdateUserFormData = {
 };
 
 function FirstLoginForm() {
+  const user = useSelector(selectCurrentUser);
   const [updateUserFormData, setUpdateUserFormData] =
     useState<UpdateUserFormData>(initialUpdateUserFormData);
 
@@ -37,7 +40,11 @@ function FirstLoginForm() {
     console.log("handled");
   }
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {}
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    const userUpdateDto = { ...updateUserFormData };
+    setUpdateUserFormData(initialUpdateUserFormData);
+  }
 
   return (
     <>
