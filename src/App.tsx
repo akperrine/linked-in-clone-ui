@@ -11,9 +11,12 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import { useState } from "react";
 import GoogleOauth from "./Components/User/GoogleOauth";
+import FirstLoginForm from "./pages/FirstLoginForm";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [loggedIn] = useState(true);
+  const user = useSelector((state) => state.user);
+  const loggedIn = user.isLoggedIn;
   return (
     <Router>
       <Routes>
@@ -24,6 +27,10 @@ function App() {
         <Route
           path="/profile"
           element={loggedIn ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/firstLogin"
+          element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

@@ -1,8 +1,10 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
-import GoogleLogin from "../Components/User/GoogleOauth";
 import { useLoginUserMutation } from "../redux/api/userApi";
 import { getSocialLoginUrl } from "../utils/helperFunctions";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const initialLoginFromData = {
   email: "",
@@ -10,14 +12,28 @@ const initialLoginFromData = {
 };
 
 function LogIn() {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loginFormData, setLoginFormData] = useState(initialLoginFromData);
   const [loginUserMutaion] = useLoginUserMutation();
+  console.log(user);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("submitted");
-    loginUserMutaion(loginFormData);
-    setLoginFormData(initialLoginFromData);
+    try {
+      const { data } = await loginUserMutaion(loginFormData);
+      dispatch(login(data));
+      if (data.firstLogin === true) {
+        navigate("/firstLogin");
+      } else {
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoginFormData(initialLoginFromData);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
