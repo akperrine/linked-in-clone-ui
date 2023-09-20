@@ -2,6 +2,8 @@ import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/slices/userSlice";
+import { UserDto, useUpdateUserMutation } from "../redux/api/userApi";
+import { useNavigate } from "react-router-dom";
 
 type UpdateUserFormData = {
   firstName: string;
@@ -35,31 +37,51 @@ function FirstLoginForm() {
   const user = useSelector(selectCurrentUser);
   const [updateUserFormData, setUpdateUserFormData] =
     useState<UpdateUserFormData>(initialUpdateUserFormData);
+  const [updateUserMutation] = useUpdateUserMutation();
+  const navigate = useNavigate();
 
   function handleUserInitialInfoSubmit(e: React.FormEvent) {
-    console.log("handled");
+    e.preventDefault();
+
+    const userUpdateDto: UserDto = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      connections: user.connections,
+      firstLogin: false,
+      ...updateUserFormData,
+    };
+    const { data } = updateUserMutation(userUpdateDto);
+    console.log(userUpdateDto);
+
+    try {
+      setUpdateUserFormData(initialUpdateUserFormData);
+      navigate("/profile");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
-    const userUpdateDto = { ...updateUserFormData };
-    setUpdateUserFormData(initialUpdateUserFormData);
+    const { name, value } = e.target;
+    setUpdateUserFormData({ ...updateUserFormData, [name]: value });
   }
 
   return (
     <>
       <Form onSubmit={handleUserInitialInfoSubmit}>
-        <Label htmlFor="fName">First Name:</Label>
+        <Label htmlFor="firstName">First Name:</Label>
         <TextInput
-          id="fName"
-          name="fName"
+          id="firstName"
+          name="firstName"
           type="text"
           onChange={handleChange}
         />
-        <Label htmlFor="lName">Last Name:</Label>
+        <Label htmlFor="lastName">Last Name:</Label>
         <TextInput
-          id="lName"
-          name="LName"
+          id="lastName"
+          name="lastName"
           type="text"
           onChange={handleChange}
         />

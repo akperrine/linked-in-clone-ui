@@ -1,6 +1,6 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
+import { RootState } from "../store";
 
 export type User = {
   id: number | null;
@@ -18,6 +18,7 @@ export type User = {
   about: string;
   firstLogin: boolean;
   role: string;
+  connections: User[];
 };
 
 type UserState = {
@@ -41,6 +42,7 @@ const initialState: UserState = {
     about: "",
     firstLogin: false,
     role: "",
+    connections: [],
   },
   isLoggedIn: false,
 };
@@ -65,5 +67,3 @@ export default userSlice.reducer;
 
 export const selectLoginStatus = (state: RootState) => state.user.isLoggedIn;
 export const selectCurrentUser = (state: RootState) => state.user.information;
-// export const selectUserConnections =
-//   ([selectCurrentUser], (user) => user?.information?.connections);
