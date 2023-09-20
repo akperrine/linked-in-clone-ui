@@ -1,21 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export type User = {
-  id: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  headline: string;
-  country: string;
-  city: string;
-  company: string;
-  industry: string;
-  college: string;
-  website: string;
-  about: string;
-  role: string;
-};
+import { getXsrfToken } from "../../utils/helperFunctions";
+import { User } from "../slices/userSlice";
 
 export type RegisterDto = {
   email: string;
@@ -51,7 +36,25 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["user"],
     }),
+    updateUser: builder.mutation<
+      User,
+      { updatedUserData: User; xsrfToken: string }
+    >({
+      query: (updatedUserData) => ({
+        method: "PUT",
+        url: "/update",
+        body: updatedUserData,
+        headers: {
+          "X-XSRF-Token": getXsrfToken(),
+        },
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = userApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useUpdateUserMutation,
+} = userApi;
