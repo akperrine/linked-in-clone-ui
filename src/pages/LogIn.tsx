@@ -2,9 +2,10 @@ import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
 import { useLoginUserMutation } from "../redux/api/userApi";
 import { getSocialLoginUrl } from "../utils/helperFunctions";
-import { useDispatch, useSelector } from "react-redux";
-import { login, selectCurrentUser } from "../redux/slices/userSlice";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import PreAuthWrapper from "../Components/UiComponents/PreAuthWrapper";
 
 const initialLoginFromData = {
   email: "",
@@ -42,26 +43,28 @@ function LogIn() {
   };
 
   return (
-    <div data-testid="login-component">
-      <Form onSubmit={handleLogin}>
-        <Label htmlFor="email">Email:</Label>
-        <TextInput
-          id="email"
-          name="email"
-          type="email"
-          onChange={handleChange}
-        />
-        <Label htmlFor="password">Password:</Label>
-        <TextInput
-          id="password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-        <Button type="submit">Login!</Button>
-        <a href={getSocialLoginUrl()}>Login With Google</a>
-      </Form>
-    </div>
+    <PreAuthWrapper>
+      <div data-testid="login-component">
+        <Form onSubmit={handleLogin} className="">
+          <Label htmlFor="email">Email:</Label>
+          <TextInput
+            id="email"
+            name="email"
+            type="email"
+            onChange={handleChange}
+          />
+          <Label htmlFor="password">Password:</Label>
+          <TextInput
+            id="password"
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
+          <Button type="submit">Login!</Button>
+          <a href={getSocialLoginUrl()}>Login With Google</a>
+        </Form>
+      </div>
+    </PreAuthWrapper>
   );
 }
 

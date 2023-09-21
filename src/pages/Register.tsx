@@ -4,6 +4,7 @@ import { useRegisterUserMutation } from "../redux/api/userApi";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import PreAuthWrapper from "../Components/UiComponents/PreAuthWrapper";
 
 type RegisterFromData = {
   email: string;
@@ -46,25 +47,27 @@ function Register() {
   };
 
   return (
-    <div data-testid="register-component">
-      <Form onSubmit={handleRegisterSubmit}>
-        <Label htmlFor="email">Email:</Label>
-        <TextInput
-          id="email"
-          name="email"
-          type="email"
-          onChange={handleChange}
-        />
-        <Label htmlFor="password">Password:</Label>
-        <TextInput
-          id="password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-        <Button type="submit">Register!</Button>
-      </Form>
-    </div>
+    <PreAuthWrapper>
+      <div data-testid="register-component">
+        <Form onSubmit={handleRegisterSubmit}>
+          <Label htmlFor="email">Email:</Label>
+          <TextInput
+            id="email"
+            name="email"
+            type="email"
+            onChange={handleChange}
+          />
+          <Label htmlFor="password">Password:</Label>
+          <TextInput
+            id="password"
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
+          <Button type="submit">Register!</Button>
+        </Form>
+      </div>
+    </PreAuthWrapper>
   );
 }
 
