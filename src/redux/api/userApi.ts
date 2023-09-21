@@ -52,6 +52,7 @@ export const userApi = createApi({
         method: "POST",
         url: "/login",
         body: loginCredentials,
+        headers: {},
       }),
       invalidatesTags: ["user"],
     }),

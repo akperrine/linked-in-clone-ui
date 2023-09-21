@@ -52,7 +52,6 @@ function FirstLoginForm() {
       ...updateUserFormData,
     };
     const { data } = updateUserMutation(userUpdateDto);
-    console.log(userUpdateDto);
 
     try {
       setUpdateUserFormData(initialUpdateUserFormData);

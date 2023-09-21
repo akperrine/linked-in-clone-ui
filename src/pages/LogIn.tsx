@@ -15,22 +15,24 @@ function LogIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginFormData, setLoginFormData] = useState(initialLoginFromData);
-  const [loginUserMutaion] = useLoginUserMutation();
+  const [loginUserMutation] = useLoginUserMutation();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const { data } = await loginUserMutaion(loginFormData);
-      dispatch(login(data));
-      if (data.firstLogin === true) {
-        navigate("/firstLogin");
-      } else {
-        navigate("/profile");
+      const { data } = await loginUserMutation(loginFormData);
+      if (data !== undefined) {
+        dispatch(login(data));
+        if (data.firstLogin === true) {
+          navigate("/firstLogin");
+        } else {
+          navigate("/profile");
+        }
       }
+      console.log("data ", data);
     } catch (error) {
       console.log(error);
-      setLoginFormData(initialLoginFromData);
     }
   };
 

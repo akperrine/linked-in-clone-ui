@@ -11,13 +11,47 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import GoogleOauth from "./Components/User/GoogleOauth";
 import FirstLoginForm from "./pages/FirstLoginForm";
-import { useSelector } from "react-redux";
-import { selectLoginStatus } from "./redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  login,
+  selectCurrentUser,
+  selectLoginStatus,
+  selectisLoading,
+  setUserLoading,
+} from "./redux/slices/userSlice";
+import { useEffect, useState } from "react";
+import { useLoginUserMutation } from "./redux/api/userApi";
+import Loading from "./Components/Loading";
 
 function App() {
   const loggedIn = useSelector(selectLoginStatus);
-  console.log(loggedIn);
+  const loadingUser = useSelector(selectisLoading);
+  const user = useSelector(selectCurrentUser);
+  const [loginUserMutation] = useLoginUserMutation();
+  const dispatch = useDispatch();
+  const [isInitialized, setIsInitialized] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      if (user.email === "") {
+        try {
+          dispatch(setUserLoading(true));
+          const { data } = await loginUserMutation({});
+          dispatch(setUserLoading(false));
+          if (data !== undefined) {
+            dispatch(login(data));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        setIsInitialized(true);
+      }
+    })();
+  }, [user.email]);
+
+  if (loadingUser || !isInitialized) {
+    return <Loading />;
+  }
   return (
     <Router>
       <Routes>
