@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import { useState } from "react";
 import GoogleOauth from "./Components/User/GoogleOauth";
+import Post from "./Components/Post/Post";
+import PostGroup from "./Components/Post/PostGroup";
 
 function App() {
   const [loggedIn] = useState(true);
@@ -25,6 +27,7 @@ function App() {
           path="/profile"
           element={loggedIn ? <Profile /> : <Navigate to="/login" />}
         />
+        <Route path="/post" element={<PostGroup/>}/>
       </Routes>
     </Router>
   );
