@@ -3,7 +3,7 @@ export function getXsrfToken(): string {
     .split("; ")
     .filter((cookie) => cookie.includes("XSRF-TOKEN"));
   let xsrfToken = "";
-  if (xsrfCookie) {
+  if (xsrfCookie.length > 0) {
     xsrfToken = xsrfCookie[0].split("=")[1];
   }
 

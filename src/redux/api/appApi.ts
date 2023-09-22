@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getXsrfToken } from "../../utils/helperFunctions";
-import { LoginDto, RegisterDto, User } from "../../utils/Types";
+import { LoginDto, PostType, RegisterDto, User } from "../../utils/Types";
 
 export const appApi = createApi({
   reducerPath: "appApi",
@@ -8,7 +8,7 @@ export const appApi = createApi({
     baseUrl: "http://localhost:8282",
     credentials: "include",
   }),
-  tagTypes: ["user"],
+  tagTypes: ["user", "posts"],
   endpoints: (builder) => ({
     registerUser: builder.mutation<User, RegisterDto>({
       query: (registerCredentials) => ({
@@ -41,6 +41,17 @@ export const appApi = createApi({
     getPosts: builder.query({
       query: () => "/posts",
     }),
+    addPost: builder.mutation<PostType, PostType>({
+      query: (addPost) => ({
+        method: "Post",
+        url: "/posts/new",
+        body: addPost,
+        headers: {
+          "X-XSRF-Token": getXsrfToken(),
+        },
+      }),
+      invalidatesTags: ["posts"],
+    }),
   }),
 });
 
@@ -49,4 +60,5 @@ export const {
   useRegisterUserMutation,
   useUpdateUserMutation,
   useGetPostsQuery,
+  useAddPostMutation,
 } = appApi;

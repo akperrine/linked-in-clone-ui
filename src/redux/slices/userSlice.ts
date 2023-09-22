@@ -54,4 +54,6 @@ export default userSlice.reducer;
 
 export const selectLoginStatus = (state: RootState) => state.user.isLoggedIn;
 export const selectCurrentUser = (state: RootState) => state.user.information;
+export const selectCurrentEmail = (state: RootState) =>
+  state.user.information.email;
 export const selectisLoading = (state: RootState) => state.user.isLoading;

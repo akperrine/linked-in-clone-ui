@@ -1,15 +1,34 @@
-import { Card, Form, TextInput } from "@trussworks/react-uswds";
+import { Card, TextInput } from "@trussworks/react-uswds";
 import React, { ChangeEvent, useState } from "react";
+import { useAddPostMutation } from "../../redux/api/appApi";
+import { PostType } from "../../utils/Types";
+import { useSelector } from "react-redux";
+import { selectCurrentEmail } from "../../redux/slices/userSlice";
 
 function AddPost() {
   const [postInput, setPostInput] = useState("");
+  const [addPostMutation] = useAddPostMutation();
+  const userEmail = useSelector(selectCurrentEmail);
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setPostInput(e.target.value);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(postInput);
+    const postDto: PostType = {
+      email: userEmail,
+      content: postInput,
+      timestamp: new Date(),
+      likes: 0,
+      comments: [],
+    };
+    try {
+      const { data } = await addPostMutation(postDto);
+      console.log("success: ", data);
+    } catch (error) {
+      console.log(error);
+    }
     setPostInput("");
   }
 
