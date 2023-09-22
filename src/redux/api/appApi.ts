@@ -1,40 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getXsrfToken } from "../../utils/helperFunctions";
-import { User } from "../slices/userSlice";
+import { LoginDto, RegisterDto, User } from "../../utils/Types";
 
-export type RegisterDto = {
-  email: string;
-  password: string;
-};
-
-export type LoginDto = {
-  email: string;
-  password: string;
-};
-
-export type UserDto = {
-  id: number | null;
-  email: string;
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  headline: string;
-  country: string;
-  city: string;
-  company: string;
-  industry: string;
-  college: string;
-  website: string;
-  about: string;
-  firstLogin: boolean;
-  role: string;
-  connections: User[];
-};
-
-export const userApi = createApi({
-  reducerPath: "userApi",
+export const appApi = createApi({
+  reducerPath: "appApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8282/users",
+    baseUrl: "http://localhost:8282",
     credentials: "include",
   }),
   tagTypes: ["user"],
@@ -42,7 +13,7 @@ export const userApi = createApi({
     registerUser: builder.mutation<User, RegisterDto>({
       query: (registerCredentials) => ({
         method: "POST",
-        url: "/register",
+        url: "/users/register",
         body: registerCredentials,
       }),
       invalidatesTags: ["user"],
@@ -50,7 +21,7 @@ export const userApi = createApi({
     loginUser: builder.mutation<User, LoginDto>({
       query: (loginCredentials) => ({
         method: "POST",
-        url: "/login",
+        url: "/users/login",
         body: loginCredentials,
         headers: {},
       }),
@@ -59,13 +30,16 @@ export const userApi = createApi({
     updateUser: builder.mutation<User, User>({
       query: (updatedUserData) => ({
         method: "PUT",
-        url: "/update",
+        url: "/users/update",
         body: updatedUserData,
         headers: {
           "X-XSRF-Token": getXsrfToken(),
         },
       }),
       invalidatesTags: ["user"],
+    }),
+    getPosts: builder.query({
+      query: () => "/posts",
     }),
   }),
 });
@@ -74,4 +48,5 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useUpdateUserMutation,
-} = userApi;
+  useGetPostsQuery,
+} = appApi;

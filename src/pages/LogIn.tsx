@@ -1,6 +1,6 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
-import { useLoginUserMutation } from "../redux/api/userApi";
+import { useLoginUserMutation } from "../redux/api/appApi";
 import { getSocialLoginUrl } from "../utils/helperFunctions";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/userSlice";

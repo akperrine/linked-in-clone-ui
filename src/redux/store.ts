@@ -3,12 +3,12 @@ import {
   combineReducers,
   configureStore,
 } from "@reduxjs/toolkit";
-import { userApi } from "./api/userApi";
+import { appApi } from "./api/appApi";
 import userReducer from "./slices/userSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,
-  [userApi.reducerPath]: userApi.reducer,
+  [appApi.reducerPath]: appApi.reducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
@@ -16,7 +16,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
     reducer: rootReducer,
     preloadedState,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(userApi.middleware),
+      getDefaultMiddleware().concat(appApi.middleware),
   });
 
 export type RootState = ReturnType<typeof rootReducer>;

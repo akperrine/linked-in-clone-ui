@@ -18,7 +18,7 @@ import {
   setUserLoading,
 } from "./redux/slices/userSlice";
 import { useEffect, useState } from "react";
-import { useLoginUserMutation } from "./redux/api/userApi";
+import { useLoginUserMutation } from "./redux/api/appApi";
 import Loading from "./Components/Loading";
 import NavBar from "./Components/NavBar";
 import PostGroup from "./Components/Post/PostGroup";

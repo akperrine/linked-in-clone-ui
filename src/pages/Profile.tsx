@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { selectCurrentUser } from "../redux/slices/userSlice";
-import { Grid, GridContainer, Table } from "@trussworks/react-uswds";
+import { Grid, GridContainer } from "@trussworks/react-uswds";
 import PageWrapper from "../Components/UiComponents/PageWrapper";
 
 function Profile() {
