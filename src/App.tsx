@@ -20,9 +20,9 @@ import {
 import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "./redux/api/appApi";
 import Loading from "./Components/Loading";
-import NavBar from "./Components/NavBar";
-import PostGroup from "./Components/Post/PostGroup";
+import NavBar from "./Components/Navigation/NavBar";
 import Dashboard from "./pages/Dashboard";
+import WithNav from "./Components/Navigation/WithNav";
 
 function App() {
   const loggedIn = useSelector(selectLoginStatus);
@@ -55,24 +55,25 @@ function App() {
   }
   return (
     <Router>
-      <NavBar />
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/oauth2/redirect" element={<GoogleOauth />} />
-        <Route
-          path="/profile"
-          element={loggedIn ? <Profile /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/firstLogin"
-          element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/feed"
-          element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
-        />
+        <Route element={<WithNav />}>
+          <Route
+            path="/profile"
+            element={loggedIn ? <Profile /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/firstLogin"
+            element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/feed"
+            element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
+          />
+        </Route>
       </Routes>
     </Router>
   );

@@ -1,19 +1,14 @@
 import { useSelector } from "react-redux";
-import { selectLoginStatus } from "../redux/slices/userSlice";
+import { selectLoginStatus } from "../../redux/slices/userSlice";
 import { Header, TextInput } from "@trussworks/react-uswds";
 import { ChangeEvent, useState } from "react";
 
 function NavBar() {
   const [searchInput, setSearchInput] = useState("");
-  const loggedIn = useSelector(selectLoginStatus);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setSearchInput(e.target.value);
-  }
-
-  if (!loggedIn) {
-    return <></>;
   }
   return (
     <>
