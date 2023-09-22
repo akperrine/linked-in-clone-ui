@@ -57,7 +57,7 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/oauth2/redirect" element={<GoogleOauth />} />
