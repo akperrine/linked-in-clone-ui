@@ -5,16 +5,16 @@ import { ChangeEvent, useState } from "react";
 
 function NavBar() {
   const [searchInput, setSearchInput] = useState("");
-  const loggedIn = useSelector(selectLoginStatus);
+  //   const loggedIn = useSelector(selectLoginStatus);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setSearchInput(e.target.value);
   }
 
-  if (!loggedIn) {
-    return <></>;
-  }
+  //   if (!loggedIn) {
+  //     return <></>;
+  //   }
   return (
     <>
       <Header className="bg-white width-full position-fixed height-8 padding-bottom-2 z-top border-bottom border-base-lightest">
