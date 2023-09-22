@@ -1,17 +1,33 @@
 import { useSelector } from "react-redux";
 import { selectLoginStatus } from "../redux/slices/userSlice";
-import { Header } from "@trussworks/react-uswds";
+import { Header, TextInput } from "@trussworks/react-uswds";
+import { ChangeEvent, useState } from "react";
 
 function NavBar() {
-  //   const loggedIn = useSelector(selectLoginStatus);
+  const [searchInput, setSearchInput] = useState("");
+  const loggedIn = useSelector(selectLoginStatus);
 
-  //   if (!loggedIn) {
-  //     return <></>;
-  //   }
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+  }
+
+  if (!loggedIn) {
+    return <></>;
+  }
   return (
     <>
-      <Header className="bg-red width-full position-fixed height-5">
-        Nav bar
+      <Header className="bg-white width-full position-fixed height-8 padding-bottom-2 z-top border-bottom border-base-lightest">
+        <div className="display-flex flex-row">
+          <img alt="logo"></img>
+          <TextInput
+            id="nav-search"
+            name="nav-search"
+            type="text"
+            onChange={handleChange}
+            className="border-base-light"
+          />
+        </div>
       </Header>
     </>
   );
