@@ -1,8 +1,11 @@
 import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { useState } from "react";
-import GoogleLogin from "../Components/User/GoogleOauth";
 import { useLoginUserMutation } from "../redux/api/userApi";
 import { getSocialLoginUrl } from "../utils/helperFunctions";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
+import PreAuthWrapper from "../Components/UiComponents/PreAuthWrapper";
 
 const initialLoginFromData = {
   email: "",
@@ -10,14 +13,28 @@ const initialLoginFromData = {
 };
 
 function LogIn() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loginFormData, setLoginFormData] = useState(initialLoginFromData);
-  const [loginUserMutaion] = useLoginUserMutation();
+  const [loginUserMutation] = useLoginUserMutation();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("submitted");
-    loginUserMutaion(loginFormData);
-    setLoginFormData(initialLoginFromData);
+
+    try {
+      const { data } = await loginUserMutation(loginFormData);
+      if (data !== undefined) {
+        dispatch(login(data));
+        if (data.firstLogin === true) {
+          navigate("/firstLogin");
+        } else {
+          navigate("/profile");
+        }
+      }
+      console.log("data ", data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,26 +43,28 @@ function LogIn() {
   };
 
   return (
-    <div data-testid="login-component">
-      <Form onSubmit={handleLogin}>
-        <Label htmlFor="email">Email:</Label>
-        <TextInput
-          id="email"
-          name="email"
-          type="email"
-          onChange={handleChange}
-        />
-        <Label htmlFor="password">Password:</Label>
-        <TextInput
-          id="password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-        <Button type="submit">Login!</Button>
-        <a href={getSocialLoginUrl()}>Login With Google</a>
-      </Form>
-    </div>
+    <PreAuthWrapper>
+      <div data-testid="login-component">
+        <Form onSubmit={handleLogin} className="">
+          <Label htmlFor="email">Email:</Label>
+          <TextInput
+            id="email"
+            name="email"
+            type="email"
+            onChange={handleChange}
+          />
+          <Label htmlFor="password">Password:</Label>
+          <TextInput
+            id="password"
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
+          <Button type="submit">Login!</Button>
+          <a href={getSocialLoginUrl()}>Login With Google</a>
+        </Form>
+      </div>
+    </PreAuthWrapper>
   );
 }
 

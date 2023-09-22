@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 export type User = {
   id: number | null;
@@ -17,11 +18,13 @@ export type User = {
   about: string;
   firstLogin: boolean;
   role: string;
+  connections: User[];
 };
 
 type UserState = {
   information: User;
   isLoggedIn: boolean;
+  isLoading: boolean;
 };
 const initialState: UserState = {
   information: {
@@ -40,8 +43,10 @@ const initialState: UserState = {
     about: "",
     firstLogin: false,
     role: "",
+    connections: [],
   },
   isLoggedIn: false,
+  isLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -56,8 +61,15 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.information = initialState.information;
     },
+    setUserLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, setUserLoading } = userSlice.actions;
 export default userSlice.reducer;
+
+export const selectLoginStatus = (state: RootState) => state.user.isLoggedIn;
+export const selectCurrentUser = (state: RootState) => state.user.information;
+export const selectisLoading = (state: RootState) => state.user.isLoading;

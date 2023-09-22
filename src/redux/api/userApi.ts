@@ -12,6 +12,25 @@ export type LoginDto = {
   password: string;
 };
 
+export type UserDto = {
+  id: number | null;
+  email: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  headline: string;
+  country: string;
+  city: string;
+  company: string;
+  industry: string;
+  college: string;
+  website: string;
+  about: string;
+  firstLogin: boolean;
+  role: string;
+  connections: User[];
+};
+
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -33,13 +52,11 @@ export const userApi = createApi({
         method: "POST",
         url: "/login",
         body: loginCredentials,
+        headers: {},
       }),
       invalidatesTags: ["user"],
     }),
-    updateUser: builder.mutation<
-      User,
-      { updatedUserData: User; xsrfToken: string }
-    >({
+    updateUser: builder.mutation<User, User>({
       query: (updatedUserData) => ({
         method: "PUT",
         url: "/update",
