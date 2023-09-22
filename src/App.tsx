@@ -21,8 +21,8 @@ import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "./redux/api/userApi";
 import Loading from "./Components/Loading";
 import NavBar from "./Components/NavBar";
-import Post from "./Components/Post/Post";
 import PostGroup from "./Components/Post/PostGroup";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const loggedIn = useSelector(selectLoginStatus);
@@ -69,7 +69,10 @@ function App() {
           path="/firstLogin"
           element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
         />
-        <Route path="/post" element={<PostGroup />} />
+        <Route
+          path="/feed"
+          element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );
