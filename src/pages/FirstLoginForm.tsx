@@ -2,7 +2,7 @@ import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/slices/userSlice";
-import { UserDto, useUpdateUserMutation } from "../redux/api/userApi";
+import { UserDto, useUpdateUserMutation } from "../redux/api/appApi";
 import { useNavigate } from "react-router-dom";
 import PreAuthWrapper from "../Components/UiComponents/PreAuthWrapper";
 
@@ -56,7 +56,7 @@ function FirstLoginForm() {
 
     try {
       setUpdateUserFormData(initialUpdateUserFormData);
-      navigate("/profile");
+      navigate("/feed");
     } catch (error) {
       console.log(error);
     }

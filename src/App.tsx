@@ -18,7 +18,7 @@ import {
   setUserLoading,
 } from "./redux/slices/userSlice";
 import { useEffect, useState } from "react";
-import { useLoginUserMutation } from "./redux/api/userApi";
+import { useLoginUserMutation } from "./redux/api/appApi";
 import Loading from "./Components/Loading";
 import NavBar from "./Components/NavBar";
 import PostGroup from "./Components/Post/PostGroup";
@@ -57,7 +57,7 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<LogIn />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/oauth2/redirect" element={<GoogleOauth />} />

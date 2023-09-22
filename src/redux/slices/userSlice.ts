@@ -1,25 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
-export type User = {
-  id: number | null;
-  email: string;
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  headline: string;
-  country: string;
-  city: string;
-  company: string;
-  industry: string;
-  college: string;
-  website: string;
-  about: string;
-  firstLogin: boolean;
-  role: string;
-  connections: User[];
-};
+import { User } from "../../utils/Types";
 
 type UserState = {
   information: User;
@@ -72,4 +54,6 @@ export default userSlice.reducer;
 
 export const selectLoginStatus = (state: RootState) => state.user.isLoggedIn;
 export const selectCurrentUser = (state: RootState) => state.user.information;
+export const selectCurrentEmail = (state: RootState) =>
+  state.user.information.email;
 export const selectisLoading = (state: RootState) => state.user.isLoading;

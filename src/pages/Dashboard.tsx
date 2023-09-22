@@ -1,12 +1,25 @@
+import { Card, Grid } from "@trussworks/react-uswds";
 import PostGroup from "../Components/Post/PostGroup";
 import PageWrapper from "../Components/UiComponents/PageWrapper";
+import AddPost from "../Components/Post/AddPost";
+import ProfileCard from "../Components/Profile/ProfileCard";
 
 function Dashboard() {
   return (
     <PageWrapper>
-      <div className="padding-5">
-        <PostGroup />
-      </div>
+      <Grid row className="">
+        <Grid col={3}>
+          <ProfileCard />
+        </Grid>
+        <Grid col={6} className="">
+          <AddPost />
+          <Card></Card>
+          <PostGroup />
+        </Grid>
+        <Grid col={3} className="">
+          <Card className="margin-left-2">Ad ...</Card>
+        </Grid>
+      </Grid>
     </PageWrapper>
   );
 }
