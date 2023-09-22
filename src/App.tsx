@@ -24,7 +24,6 @@ import NavBar from "./Components/NavBar";
 import Post from "./Components/Post/Post";
 import PostGroup from "./Components/Post/PostGroup";
 
-
 function App() {
   const loggedIn = useSelector(selectLoginStatus);
   const loadingUser = useSelector(selectisLoading);
@@ -58,19 +57,19 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Profile />} />
+        <Route path="/" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/oauth2/redirect" element={<GoogleOauth />} />
-        {/* <Route
+        <Route
           path="/profile"
           element={loggedIn ? <Profile /> : <Navigate to="/login" />}
-        /> */}
+        />
         <Route
           path="/firstLogin"
           element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
         />
-        <Route path="/post" element={<PostGroup/>}/>
+        <Route path="/post" element={<PostGroup />} />
       </Routes>
     </Router>
   );
