@@ -20,9 +20,9 @@ import {
 import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "./redux/api/appApi";
 import Loading from "./Components/Loading";
-import NavBar from "./Components/Navigation/NavBar";
 import Dashboard from "./pages/Dashboard";
 import WithNav from "./Components/Navigation/WithNav";
+import Results from "./pages/Results";
 
 function App() {
   const loggedIn = useSelector(selectLoginStatus);
@@ -72,6 +72,10 @@ function App() {
           <Route
             path="/feed"
             element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/results"
+            element={loggedIn ? <Results /> : <Navigate to="/login" />}
           />
         </Route>
       </Routes>

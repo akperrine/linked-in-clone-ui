@@ -28,7 +28,7 @@ function LogIn() {
         if (data.firstLogin === true) {
           navigate("/firstLogin");
         } else {
-          navigate("/feed");
+          navigate("/register");
         }
       }
       console.log("data ", data);

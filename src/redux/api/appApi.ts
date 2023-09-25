@@ -10,6 +10,9 @@ export const appApi = createApi({
   }),
   tagTypes: ["user", "posts"],
   endpoints: (builder) => ({
+    getUsers: builder.query({
+      query: () => "/users",
+    }),
     registerUser: builder.mutation<User, RegisterDto>({
       query: (registerCredentials) => ({
         method: "POST",
@@ -56,6 +59,7 @@ export const appApi = createApi({
 });
 
 export const {
+  useGetUsersQuery,
   useLoginUserMutation,
   useRegisterUserMutation,
   useUpdateUserMutation,
