@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getXsrfToken } from "../../utils/helperFunctions";
-import { LoginDto, PostType, RegisterDto, User } from "../../utils/Types";
+import {
+  ConnectionDto,
+  LoginDto,
+  PostType,
+  RegisterDto,
+  User,
+} from "../../utils/Types";
 
 export const appApi = createApi({
   reducerPath: "appApi",
@@ -46,7 +52,7 @@ export const appApi = createApi({
     }),
     addPost: builder.mutation<PostType, PostType>({
       query: (addPost) => ({
-        method: "Post",
+        method: "POST",
         url: "/posts/new",
         body: addPost,
         headers: {
@@ -54,6 +60,17 @@ export const appApi = createApi({
         },
       }),
       invalidatesTags: ["posts"],
+    }),
+    addConnection: builder.mutation<User[], ConnectionDto>({
+      query: (connectionInfo) => ({
+        method: "POST",
+        url: "users/follow",
+        body: connectionInfo,
+        headers: {
+          "X-XSRF-Token": getXsrfToken(),
+        },
+      }),
+      invalidatesTags: ["user"],
     }),
   }),
 });
@@ -65,4 +82,5 @@ export const {
   useUpdateUserMutation,
   useGetPostsQuery,
   useAddPostMutation,
+  useAddConnectionMutation,
 } = appApi;

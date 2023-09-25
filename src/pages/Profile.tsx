@@ -1,16 +1,39 @@
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/slices/userSlice";
+import {
+  selectCurrentEmail,
+  selectCurrentUser,
+} from "../redux/slices/userSlice";
 import { Grid, GridContainer } from "@trussworks/react-uswds";
 import PageWrapper from "../Components/UiComponents/PageWrapper";
 import { User } from "../utils/Types";
 import { useLocation } from "react-router-dom";
 import backdropPic from "../assets/default-backdrop.png";
 import CardLI from "../Components/UiComponents/CardLI";
+import { useAddConnectionMutation } from "../redux/api/appApi";
 
 function Profile() {
   const location = useLocation();
   const profileInfo = location.state as User;
-  const user = useSelector(selectCurrentUser);
+  const userEmail = useSelector(selectCurrentEmail);
+  const [addConnectionMutation] = useAddConnectionMutation();
+
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const connectDto = {
+      userEmail,
+      connectionEmail: profileInfo.email,
+      follow: true,
+    };
+    console.log(connectDto);
+    try {
+      const { data } = addConnectionMutation(connectDto);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const isUserProfile = profileInfo.email === userEmail;
+
   return (
     <PageWrapper>
       <GridContainer>
@@ -39,9 +62,9 @@ function Profile() {
                   </div>
                 </div>
                 <div>Connections: __</div>
-                {!(profileInfo.email === user.email) && (
+                {!isUserProfile && (
                   <div>
-                    <button>Connect</button>
+                    <button onClick={handleClick}>Connect</button>
                   </div>
                 )}
               </div>

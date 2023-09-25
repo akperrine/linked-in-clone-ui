@@ -57,3 +57,9 @@ export interface UserDto {
   role: string;
   connections: User[];
 }
+
+export interface ConnectionDto {
+  userEmail: string;
+  connectionEmail: string;
+  follow: boolean;
+}

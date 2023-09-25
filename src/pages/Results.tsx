@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { User } from "../utils/Types";
 import Loading from "../Components/Loading";
-import CardLI from "../Components/UiComponents/CardLI";
 import { useGetUsersQuery } from "../redux/api/appApi";
 import SearchResultCard from "../Components/SearchResultCard";
 
