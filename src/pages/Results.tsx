@@ -3,25 +3,28 @@ import { User } from "../utils/Types";
 import Loading from "../Components/Loading";
 import { useGetUsersQuery } from "../redux/api/appApi";
 import SearchResultCard from "../Components/SearchResultCard";
+import { useLocation } from "react-router-dom";
 
 function Results() {
   const [users, setUsers] = useState<User[]>([]);
-  const { data, isError, isLoading } = useGetUsersQuery({});
-  console.log(data);
+  //   const { data, isError, isLoading } = useGetUsersQuery({});
+  const location = useLocation();
+  const data = location.state;
+  console.log(location.state);
 
   useEffect(() => {
-    if (!isLoading && !isError && data) {
+    if (data) {
       setUsers(data);
     }
-  }, [data, isLoading, isError]);
+  }, [data]);
 
-  if (isLoading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  //   if (isLoading) {
+  //     return (
+  //       <>
+  //         <Loading />
+  //       </>
+  //     );
+  //   }
 
   return (
     <div className="padding-10">

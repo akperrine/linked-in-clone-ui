@@ -2,7 +2,10 @@ import { useSelector } from "react-redux";
 import { selectLoginStatus } from "../../redux/slices/userSlice";
 import { Header, TextInput } from "@trussworks/react-uswds";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useSearchUserMutation } from "../../redux/api/appApi";
+import {
+  useGetUsersQuery,
+  useSearchUserMutation,
+} from "../../redux/api/appApi";
 import { useNavigate } from "react-router-dom";
 
 function NavBar() {
@@ -19,8 +22,7 @@ function NavBar() {
     e.preventDefault();
     try {
       const { data } = await searchUserMutation(searchInput);
-      console.log(data);
-      navigate("");
+      navigate("/results", { state: data });
     } catch (error) {
       console.log(error);
     }
