@@ -47,6 +47,16 @@ export const appApi = createApi({
       }),
       invalidatesTags: ["user"],
     }),
+    searchUser: builder.mutation<User[], string>({
+      query: (searchString) => ({
+        method: "POST",
+        url: `/users/search/${searchString}`,
+        headers: {
+          "X-XSRF-Token": getXsrfToken(),
+        },
+      }),
+      invalidatesTags: ["user"],
+    }),
     getPosts: builder.query({
       query: () => "/posts",
     }),
@@ -79,6 +89,7 @@ export const {
   useGetUsersQuery,
   useLoginUserMutation,
   useRegisterUserMutation,
+  useSearchUserMutation,
   useUpdateUserMutation,
   useGetPostsQuery,
   useAddPostMutation,
