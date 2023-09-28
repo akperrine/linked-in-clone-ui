@@ -4,6 +4,7 @@ import Profile from "../pages/Profile";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/slices/userSlice";
 import CardLI from "./UiComponents/CardLI";
+import ProfilePicture from "./ProfilePicture";
 
 function ProfileCard() {
   const user = useSelector(selectCurrentUser);
@@ -11,7 +12,7 @@ function ProfileCard() {
   return (
     <CardLI className="margin-2 margin-top-0">
       <div>
-        <img alt="prof"></img>
+        <ProfilePicture imageUrl={user.imageUrl} />
         <Link to={"/profile"} state={user}>
           <h3>First Last</h3>
         </Link>
