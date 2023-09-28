@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import backdropPic from "../assets/default-backdrop.png";
 import CardLI from "../Components/UiComponents/CardLI";
 import { useAddConnectionMutation } from "../redux/api/appApi";
+import ProfilePicture from "../Components/ProfilePicture";
 
 function Profile() {
   const location = useLocation();
@@ -50,7 +51,7 @@ function Profile() {
               <div>
                 <div>
                   <div>
-                    <img src={profileInfo.imageUrl} alt="Profile Pic" />
+                    <ProfilePicture imageUrl={profileInfo.imageUrl} />
                   </div>
                 </div>
                 <div>

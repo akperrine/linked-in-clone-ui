@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { User } from "../utils/Types";
 import CardLI from "./UiComponents/CardLI";
+import ProfilePicture from "./ProfilePicture";
 
 interface SearchResultCardProps {
   userData: User;
@@ -11,7 +12,7 @@ function SearchResultCard({ userData }: SearchResultCardProps) {
     <CardLI>
       <Link to="/profile" state={userData}>
         <div>
-          <img src={userData.imageUrl} alt="prof" />
+          <ProfilePicture imageUrl={userData.imageUrl} />
 
           {" " + userData.email}
         </div>
