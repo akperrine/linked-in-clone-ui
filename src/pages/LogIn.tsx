@@ -28,10 +28,9 @@ function LogIn() {
         if (data.firstLogin === true) {
           navigate("/firstLogin");
         } else {
-          navigate("/results");
+          navigate("/feed");
         }
       }
-      console.log("data ", data);
     } catch (error) {
       console.log(error);
     }

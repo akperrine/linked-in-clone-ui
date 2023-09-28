@@ -10,7 +10,11 @@ function SearchResultCard({ userData }: SearchResultCardProps) {
   return (
     <CardLI>
       <Link to="/profile" state={userData}>
-        {userData.email}
+        <div>
+          <img src={userData.imageUrl} alt="prof" />
+
+          {" " + userData.email}
+        </div>
       </Link>
     </CardLI>
   );

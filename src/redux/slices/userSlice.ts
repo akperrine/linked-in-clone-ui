@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { User } from "../../utils/Types";
+import { encodedToJpegUrl } from "../../utils/helperFunctions";
 
 type UserState = {
   information: User;
@@ -14,7 +15,7 @@ const initialState: UserState = {
     email: "",
     firstName: "",
     lastName: "",
-    imageUrl: "",
+    imageUrl: null,
     headline: "",
     country: "",
     city: "",
@@ -25,7 +26,8 @@ const initialState: UserState = {
     about: "",
     firstLogin: false,
     role: "",
-    connections: [],
+    following: [],
+    followers: [],
   },
   isLoggedIn: false,
   isLoading: false,

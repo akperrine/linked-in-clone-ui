@@ -25,7 +25,7 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  imageUrl: string;
+  imageUrl: string | null;
   headline: string;
   country: string;
   city: string;
@@ -36,7 +36,15 @@ export interface User {
   about: string;
   firstLogin: boolean;
   role: string;
-  connections: User[];
+  following: Connection[];
+  followers: Connection[];
+}
+
+export interface Connection {
+  id: number | null;
+  email: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface UserDto {
@@ -44,7 +52,7 @@ export interface UserDto {
   email: string;
   firstName: string;
   lastName: string;
-  imageUrl: string;
+  imageUrl: Blob;
   headline: string;
   country: string;
   city: string;

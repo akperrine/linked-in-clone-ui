@@ -2,9 +2,10 @@ import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
 import React, { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/slices/userSlice";
-import { UserDto, useUpdateUserMutation } from "../redux/api/appApi";
+import { useUpdateUserMutation } from "../redux/api/appApi";
 import { useNavigate } from "react-router-dom";
 import PreAuthWrapper from "../Components/UiComponents/PreAuthWrapper";
+import { User } from "../utils/Types";
 
 type UpdateUserFormData = {
   firstName: string;
@@ -44,11 +45,12 @@ function FirstLoginForm() {
   function handleUserInitialInfoSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const userUpdateDto: UserDto = {
+    const userUpdateDto: User = {
       id: user.id,
       email: user.email,
       role: user.role,
-      connections: user.connections,
+      followers: user.followers,
+      following: user.following,
       firstLogin: false,
       ...updateUserFormData,
     };

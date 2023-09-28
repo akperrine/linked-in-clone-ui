@@ -31,6 +31,7 @@ function App() {
   const [loginUserMutation] = useLoginUserMutation();
   const dispatch = useDispatch();
   const [isInitialized, setIsInitialized] = useState(false);
+  console.log(user);
 
   useEffect(() => {
     (async () => {
@@ -60,6 +61,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/oauth2/redirect" element={<GoogleOauth />} />
+        <Route
+          path="/results"
+          element={loggedIn ? <Results /> : <Navigate to="/login" />}
+        />
         <Route element={<WithNav />}>
           <Route
             path="/profile"
@@ -72,10 +77,6 @@ function App() {
           <Route
             path="/feed"
             element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/results"
-            element={loggedIn ? <Results /> : <Navigate to="/login" />}
           />
         </Route>
       </Routes>

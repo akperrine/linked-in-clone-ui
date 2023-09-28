@@ -1,8 +1,5 @@
 import { useSelector } from "react-redux";
-import {
-  selectCurrentEmail,
-  selectCurrentUser,
-} from "../redux/slices/userSlice";
+import { selectCurrentEmail } from "../redux/slices/userSlice";
 import { Grid, GridContainer } from "@trussworks/react-uswds";
 import PageWrapper from "../Components/UiComponents/PageWrapper";
 import { User } from "../utils/Types";
@@ -53,7 +50,7 @@ function Profile() {
               <div>
                 <div>
                   <div>
-                    <img alt="Profile Pic" />
+                    <img src={profileInfo.imageUrl} alt="Profile Pic" />
                   </div>
                 </div>
                 <div>

@@ -3,8 +3,13 @@ import PostGroup from "../Components/Post/PostGroup";
 import PageWrapper from "../Components/UiComponents/PageWrapper";
 import AddPost from "../Components/Post/AddPost";
 import ProfileCard from "../Components/ProfileCard";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../redux/slices/userSlice";
 
 function Dashboard() {
+  const user = useSelector(selectCurrentUser);
+
+  console.log("dash", user);
   return (
     <PageWrapper>
       <Grid row className="">

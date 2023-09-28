@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getXsrfToken } from "../../utils/helperFunctions";
+import { encodedToJpegUrl, getXsrfToken } from "../../utils/helperFunctions";
 import {
   ConnectionDto,
   LoginDto,
@@ -35,6 +35,12 @@ export const appApi = createApi({
         headers: {},
       }),
       invalidatesTags: ["user"],
+      transformResponse: (response: User) => {
+        if (response.imageUrl) {
+          response.imageUrl = encodedToJpegUrl(response.imageUrl);
+        }
+        return response;
+      },
     }),
     updateUser: builder.mutation<User, User>({
       query: (updatedUserData) => ({
@@ -46,6 +52,12 @@ export const appApi = createApi({
         },
       }),
       invalidatesTags: ["user"],
+      transformResponse: (response: User) => {
+        if (response.imageUrl) {
+          response.imageUrl = encodedToJpegUrl(response.imageUrl);
+        }
+        return response;
+      },
     }),
     searchUser: builder.mutation<User[], string>({
       query: (searchString) => ({
@@ -56,6 +68,15 @@ export const appApi = createApi({
         },
       }),
       invalidatesTags: ["user"],
+      transformResponse: (response: User[]) => {
+        const usersWithImages = response.map((user) => {
+          if (user.imageUrl) {
+            user.imageUrl = encodedToJpegUrl(user.imageUrl);
+          }
+          return user;
+        });
+        return usersWithImages;
+      },
     }),
     getPosts: builder.query({
       query: () => "/posts",

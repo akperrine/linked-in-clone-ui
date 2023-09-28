@@ -7,24 +7,14 @@ import { useLocation } from "react-router-dom";
 
 function Results() {
   const [users, setUsers] = useState<User[]>([]);
-  //   const { data, isError, isLoading } = useGetUsersQuery({});
   const location = useLocation();
   const data = location.state;
-  console.log(location.state);
 
   useEffect(() => {
     if (data) {
       setUsers(data);
     }
   }, [data]);
-
-  //   if (isLoading) {
-  //     return (
-  //       <>
-  //         <Loading />
-  //       </>
-  //     );
-  //   }
 
   return (
     <div className="padding-10">
