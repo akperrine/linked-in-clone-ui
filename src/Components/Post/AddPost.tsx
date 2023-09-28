@@ -3,12 +3,16 @@ import React, { ChangeEvent, useState } from "react";
 import { useAddPostMutation } from "../../redux/api/appApi";
 import { PostType } from "../../utils/Types";
 import { useSelector } from "react-redux";
-import { selectCurrentEmail } from "../../redux/slices/userSlice";
+import {
+  selectCurrentEmail,
+  selectCurrentUser,
+} from "../../redux/slices/userSlice";
+import ProfilePicture from "../ProfilePicture";
 
 function AddPost() {
   const [postInput, setPostInput] = useState("");
   const [addPostMutation] = useAddPostMutation();
-  const userEmail = useSelector(selectCurrentEmail);
+  const user = useSelector(selectCurrentUser);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setPostInput(e.target.value);
@@ -17,7 +21,7 @@ function AddPost() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const postDto: PostType = {
-      email: userEmail,
+      email: user.email,
       content: postInput,
       timestamp: new Date(),
       likes: 0,
@@ -35,7 +39,7 @@ function AddPost() {
   return (
     <Card>
       <div className="display-flex flex-row">
-        <img alt="prof"></img>
+        <ProfilePicture imageUrl={user.imageUrl} />
         <form onSubmit={handleSubmit}>
           <TextInput
             id="nav-search"
