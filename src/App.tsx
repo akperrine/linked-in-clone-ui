@@ -70,10 +70,7 @@ function App() {
             path="/profile"
             element={loggedIn ? <Profile /> : <Navigate to="/login" />}
           />
-          <Route
-            path="/firstLogin"
-            element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
-          />
+
           <Route
             path="/feed"
             element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
