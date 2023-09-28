@@ -1,5 +1,5 @@
 export interface PostType {
-  _id: string;
+  id: string;
   email: string;
   content: string;
   timestamp: Date;

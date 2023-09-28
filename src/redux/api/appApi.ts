@@ -81,6 +81,14 @@ export const appApi = createApi({
     getPosts: builder.query({
       query: () => "/posts",
     }),
+    getRevalentPosts: builder.query({
+        query: (params) =>({
+            url: `/posts/relevantPosts/${params.email}?batch=${params.pageNumber}`,
+            headers: {
+                "X-XSRF-Token": getXsrfToken(),
+              },
+        }),
+    }),
     addPost: builder.mutation<PostType, PostType>({
       query: (addPost) => ({
         method: "POST",
@@ -115,4 +123,5 @@ export const {
   useGetPostsQuery,
   useAddPostMutation,
   useAddConnectionMutation,
+  useGetRevalentPostsQuery
 } = appApi;
