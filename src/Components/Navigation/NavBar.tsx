@@ -56,7 +56,7 @@ function NavBar() {
 
   return (
     <>
-      <Header className="bg-white width-full position-fixed height-8 padding-bottom-2 z-top border-bottom border-base-lightest">
+      <Header className="bg-white width-full position-fixed height-8 padding-2 z-100 border-bottom border-base-lightest">
         <div className="header-left">
           <div>
             <Logo
@@ -65,7 +65,7 @@ function NavBar() {
                 <img
                   src={logo}
                   alt=""
-                  className="usa-footer__logo-img margin-right-1"
+                  className="usa-footer__logo-img margin-right-1 height-8"
                 />
               }
             />
@@ -75,9 +75,9 @@ function NavBar() {
           </div>
         </div>
         <div className="header-right">
+          {/* <Button>test</Button>
           <Button>test</Button>
-          <Button>test</Button>
-          <Button>test</Button>
+          <Button>test</Button> */}
         </div>
       </Header>
     </>

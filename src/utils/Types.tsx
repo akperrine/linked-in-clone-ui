@@ -68,6 +68,6 @@ export interface UserDto {
 
 export interface ConnectionDto {
   userEmail: string;
-  connectionEmail: string;
+  targetEmail: string;
   follow: boolean;
 }

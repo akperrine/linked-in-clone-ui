@@ -19,7 +19,7 @@ function Profile() {
     e.preventDefault();
     const connectDto = {
       userEmail,
-      connectionEmail: profileInfo.email,
+      targetEmail: profileInfo.email,
       follow: true,
     };
     console.log(connectDto);
