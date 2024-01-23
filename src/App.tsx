@@ -61,6 +61,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/oauth2/redirect" element={<GoogleOauth />} />
+        <Route
+          path="/firstLogin"
+          element={loggedIn ? <FirstLoginForm /> : <Navigate to="/login" />}
+        />
         <Route element={<WithNav />}>
           <Route
             path="/profile"
