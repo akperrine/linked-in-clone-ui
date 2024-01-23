@@ -21,7 +21,7 @@ import {
 } from "../../redux/api/appApi";
 import { useNavigate } from "react-router-dom";
 
-import logo from "../../assets/bluebird_fired_text.png";
+import logo from "../../assets/linked-in-logo.png";
 
 function NavBar() {
   const [searchInput, setSearchInput] = useState("");
@@ -65,7 +65,7 @@ function NavBar() {
                 <img
                   src={logo}
                   alt=""
-                  className="usa-footer__logo-img margin-right-1 height-8"
+                  className="usa-footer__logo-img margin-right-1 height-5"
                 />
               }
             />
